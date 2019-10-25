@@ -1,0 +1,28 @@
+{
+  "name": "webpack_learning",
+  "version": "1.0.0",
+  "description": "My first webpach project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Redrica/webpack_learning.git"
+  },
+  "keywords": [
+    "javascript",
+    "js",
+    "webpack"
+  ],
+  "author": "Elizaveta Vinokurova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Redrica/webpack_learning/issues"
+  },
+  "homepage": "https://github.com/Redrica/webpack_learning#readme",
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9"
+  }
+}
