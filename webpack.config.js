@@ -17,20 +17,35 @@ const TerserPlugin = require('terser-webpack-plugin');
 module.exports = {
     // точка входа, основной файл, в котором мы всё подключаем
     entry: './src/index.js',
+
     // куда выкладывать
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
+
+    resolve: {
+        // какие расширения понимать по умолчанию
+        extensions: ['.scss', '.js']
+    },
+
+    // локальный сервер для разработки
+    devServer: {
+        contentBase: path.resolve(__dirname, 'dist'),
+        port: 4200
+    },
+
     // оптимизация выходных файлов
     optimization: {
         minimize: true,
         minimizer: [
             new OptimizeCSSAssetsPlugin({
-
+                // + опции
             }),
 
-            new TerserPlugin()
+            new TerserPlugin({
+                // + опции
+            })
         ]
     },
     // сюда подключаются плагины
@@ -48,14 +63,32 @@ module.exports = {
     // лоадеры
     module: {
         rules: [
+            // лоадер css
             {
                 test: /\.css$/,
+
                 // если использовать запись стилей в head <style>
                 //use: ['style-loader', 'css-loader']
 
                 // если делать отдельный стилевой файл
                 use: [MiniCssExtractPlugin.loader, 'css-loader']
             },
+            // лоадер scss
+            {
+                test: /\.scss$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+            },
+            // лоадер less
+            {
+                test: /\.less$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
+            },
+            // babel
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
+            }
         ],
     },
 };

@@ -1,0 +1,20 @@
+$primary: #006cbf;
+$secondary: #7ed2e4;
+
+.box {
+    padding: 50px;
+    background-color: #ffeabb;
+
+    &-title {
+        margin-bottom: 30px;
+        font-size: 24px;
+        text-transform: uppercase;
+        text-align: center;
+        color: $secondary;
+        text-shadow: 2px 1px 0 $primary;
+    }
+
+    &-text {
+        color: $primary;
+    }
+}
