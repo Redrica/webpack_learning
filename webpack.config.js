@@ -1,3 +1,4 @@
+'use strict';
 // настройки WEBPACK, config
 
 // встроенный node.js модуль, позволяющий работать с путями
@@ -21,7 +22,8 @@ module.exports = {
     // куда выкладывать
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        library: 'lib',
     },
 
     resolve: {
@@ -43,9 +45,9 @@ module.exports = {
                 // + опции
             }),
 
-            new TerserPlugin({
-                // + опции
-            })
+            // new TerserPlugin({
+            //     // + опции
+            // })
         ]
     },
     // сюда подключаются плагины
