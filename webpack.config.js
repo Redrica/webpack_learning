@@ -18,7 +18,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
-    // точка входа, основной файл, в котором мы всё подключаем
+    // точка входа, основной файл, в котором мы всё подключаем, т.е. какой модуль собираем.
     entry: './src/index.js',
 
     // куда выкладывать

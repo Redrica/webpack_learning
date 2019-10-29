@@ -11,6 +11,8 @@ import './less/index.less';
 import testComponent from './vue/test';
 
 // let welcome = require('./modules/my-module');
+// ↓ не заботает, хз почему. В другой сборке работало.
+// exports.welcome = welcome;
 //
 // welcome('travellers');
 // export {welcome}
@@ -19,6 +21,7 @@ import testComponent from './vue/test';
 //
 // const service = new AppService('Hello, world!');
 // service.log();
+
 
 const add = new Vue({
     el: '#app',
