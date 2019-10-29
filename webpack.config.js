@@ -14,6 +14,8 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 // для минимизации JS, т.к. учтановка minimizer переопределяет дефолтный вебпаковский
 // можно еще uglifyjs-webpack-plugin, но terser рекомендуется
 const TerserPlugin = require('terser-webpack-plugin');
+// подключение Vue-loader
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
     // точка входа, основной файл, в котором мы всё подключаем
@@ -27,8 +29,10 @@ module.exports = {
     },
 
     resolve: {
-        // какие расширения понимать по умолчанию
-        extensions: ['.scss', '.js']
+        // какие расширения понимать по умолчанию. Не забыть сюда добавлять все расширения, использующиеся в проекте.
+        extensions: ['.scss', '.js', '.vue'],
+        // это нужно, чтобы сборка vue компилировала шаблоны. Подробнее - https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
+        alias: { vue: 'vue/dist/vue.esm.js' },
     },
 
     // локальный сервер для разработки
@@ -59,7 +63,9 @@ module.exports = {
 
         new MiniCssExtractPlugin({
             filename: 'style.css',
-        })
+        }),
+
+        new VueLoaderPlugin(),
     ],
 
     // лоадеры
@@ -90,6 +96,11 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
+            },
+            // vue
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
             }
         ],
     },
