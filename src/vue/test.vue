@@ -1,7 +1,8 @@
-<template lang="pug">
-    div
-        .test-box {{ message }}
-    
+<template>
+    <div>
+        <div class="test-box" @click="flag = !flag">{{ message }}</div>
+        <acync v-if="flag"></acync>
+    </div>
 </template>
 
 <script>
@@ -10,8 +11,13 @@
 
         data () {
             return {
-                message: 'Hello world form Kolesa Darom'
+                message: 'Hello world',
+                flag: false
             }
+        },
+
+        components: {
+            acync: () => import('../vue/acync')
         }
     }
 </script>

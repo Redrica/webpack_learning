@@ -24,6 +24,7 @@ const add = new Vue({
     el: '#app',
     components: {
         testComponent,
+        // acync: () => import('./vue/acync')
     }
 });
 
