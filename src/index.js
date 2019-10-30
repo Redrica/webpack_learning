@@ -10,12 +10,12 @@ import './less/index.less';
 // импорт компонента Vue
 import testComponent from './vue/test';
 
-// let welcome = require('./modules/my-module');
+let welcome = require('./modules/my-module');
 // ↓ не заботает, хз почему. В другой сборке работало.
 // exports.welcome = welcome;
 //
 // welcome('travellers');
-// export {welcome}
+export {welcome}
 //
 // console.log('Config key: ', config.key);
 //

@@ -2,8 +2,10 @@ $primary: #006cbf;
 $secondary: #7ed2e4;
 
 .box {
+    margin-bottom: 25px;
     padding: 50px;
     background-color: #ffeabb;
+    border: 3px solid #428226;
 
     &-title {
         margin-bottom: 30px;
