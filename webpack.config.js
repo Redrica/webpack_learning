@@ -17,6 +17,8 @@ const TerserPlugin = require('terser-webpack-plugin');
 // подключение Vue-loader
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
+const NODE_ENV = process.env.NODE_ENV;
+
 module.exports = {
     // точка входа, основной файл, в котором мы всё подключаем, т.е. какой модуль собираем.
     entry: './src/index.js',
@@ -78,6 +80,8 @@ module.exports = {
         }),
 
         new VueLoaderPlugin(),
+
+        new webpack.EnvironmentPlugin(['NODE_ENV', 'USER'])
     ],
 
     // лоадеры
