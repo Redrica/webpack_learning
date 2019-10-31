@@ -17,7 +17,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 // подключение Vue-loader
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-const NODE_ENV = process.env.NODE_ENV;
+const NODE_ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
     // точка входа, основной файл, в котором мы всё подключаем, т.е. какой модуль собираем.
@@ -31,7 +31,7 @@ module.exports = {
     },
 
     // пересборка проекта при обнаружении изменений, используется кэш, пресобирается только изменившееся
-    watch: true,
+    watch: NODE_ENV == 'development',
     watchOptions: {
         // сколько WP будет ждать до пересборки после того, как изменения произошли (ms).
       aggregateTimeout: 100
@@ -53,7 +53,7 @@ module.exports = {
     // для отладки, чтобы можно было код смотреть в виде файлов, а не абракадаброй.
     // Могут быть разные параметры, для production лучше source-map, для development – eval либо cheap-inline-source-map.
     // Есть подозрение, что в WP4 включена по умолчанию на eval.
-    devtool: 'source-map',
+    devtool: NODE_ENV == 'development' ? 'source-map' : false,
 
     // оптимизация выходных файлов
     optimization: {
@@ -81,7 +81,9 @@ module.exports = {
 
         new VueLoaderPlugin(),
 
-        new webpack.EnvironmentPlugin(['NODE_ENV', 'USER'])
+        new webpack.DefinePlugin({
+            NODE_ENV: JSON.stringify(NODE_ENV)
+        })
     ],
 
     // лоадеры

@@ -14,7 +14,7 @@ let welcome = require('./modules/my-module');
 // ↓ не заботает, хз почему. В другой сборке работало.
 // exports.welcome = welcome;
 //
-// welcome('travellers');
+welcome('travellers');
 export {welcome}
 //
 // console.log('Config key: ', config.key);
