@@ -41,7 +41,7 @@ module.exports = {
         // какие расширения понимать по умолчанию. Не забыть сюда добавлять все расширения, использующиеся в проекте.
         extensions: ['.scss', '.js', '.vue'],
         // это нужно, чтобы сборка vue компилировала шаблоны. Подробнее - https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
-        alias: { vue: 'vue/dist/vue.esm.js' },
+        alias: { vue$: 'vue/dist/vue.esm.js' },
     },
 
     // локальный сервер для разработки
@@ -53,7 +53,7 @@ module.exports = {
     // для отладки, чтобы можно было код смотреть в виде файлов, а не абракадаброй.
     // Могут быть разные параметры, для production лучше source-map, для development – eval либо cheap-inline-source-map.
     // Есть подозрение, что в WP4 включена по умолчанию на eval.
-    devtool: NODE_ENV == 'development' ? 'source-map' : false,
+    devtool: NODE_ENV == 'development' ? 'eval' : false,
 
     // оптимизация выходных файлов
     optimization: {
