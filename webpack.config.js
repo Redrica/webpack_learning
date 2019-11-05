@@ -16,18 +16,31 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 // подключение Vue-loader
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+// подключение плагина для удаления файлов
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
+    mode: 'development',
+
     // точка входа, основной файл, в котором мы всё подключаем, т.е. какой модуль собираем.
-    entry: './src/index.js',
+    entry: {
+        app: './src/index.js',
+        print: './src/print.js'
+    },
 
     // куда выкладывать
     output: {
-        filename: 'bundle.js',
+        // если один выходной файл
+        // filename: 'bundle.js',
+        // library: 'lib',
+
+        // несколько точек входа
+        filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        library: 'lib',
+        // ↓ нужен для серверного скрипта при использовании webpack-dev-middleware
+        publicPath: '/',
     },
 
     // пересборка проекта при обнаружении изменений, используется кэш, пресобирается только изменившееся
@@ -70,56 +83,71 @@ module.exports = {
     },
     // сюда подключаются плагины
     plugins: [
+        new CleanWebpackPlugin(),
+
         new HTMLPlugin({
-            filename: 'index.html',
-            template: './src/index.html',
+            // ключ, задающий title документу
+            title: 'Output Management',
+            // filename: 'index.html',
+            // template: './src/index.html',
         }),
 
-        new MiniCssExtractPlugin({
-            filename: 'style.css',
-        }),
-
-        new VueLoaderPlugin(),
-
-        new webpack.DefinePlugin({
-            NODE_ENV: JSON.stringify(NODE_ENV)
-        })
+        // new MiniCssExtractPlugin({
+        //     filename: 'style.css',
+        // }),
+        //
+        // new VueLoaderPlugin(),
+        //
+        // new webpack.DefinePlugin({
+        //     NODE_ENV: JSON.stringify(NODE_ENV)
+        // })
     ],
 
     // лоадеры
-    module: {
-        rules: [
-            // лоадер css
-            {
-                test: /\.css$/,
-
-                // если использовать запись стилей в head <style>
-                //use: ['style-loader', 'css-loader']
-
-                // если делать отдельный стилевой файл
-                use: [MiniCssExtractPlugin.loader, 'css-loader']
-            },
-            // лоадер scss
-            {
-                test: /\.scss$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-            },
-            // лоадер less
-            {
-                test: /\.less$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
-            },
-            // babel
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader'
-            },
-            // vue
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader'
-            }
-        ],
-    },
+    // module: {
+    //     rules: [
+    //         // лоадер css
+    //         {
+    //             test: /\.css$/,
+    //
+    //             // если использовать запись стилей в head <style>
+    //             use: ['style-loader', 'css-loader']
+    //
+    //             // если делать отдельный стилевой файл
+    //             // use: [MiniCssExtractPlugin.loader, 'css-loader']
+    //         },
+    //         // лоадер изображений
+    //         {
+    //             test: /\.(png|svg|jpg|gif)$/,
+    //             use: ['file-loader']
+    //         },
+    //         // лоадер шрифтов
+    //         {
+    //             test: /\.(woff|woff2|eot|ttf|otf)$/,
+    //             use: ['file-loader']
+    //         },
+    //         // по аналогии – лоадеры csv, tsv, xml, json? и так далее
+    //         // // лоадер scss
+    //         // {
+    //         //     test: /\.scss$/,
+    //         //     use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+    //         // },
+    //         // // лоадер less
+    //         // {
+    //         //     test: /\.less$/,
+    //         //     use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
+    //         // },
+    //         // // babel
+    //         // {
+    //         //     test: /\.js$/,
+    //         //     exclude: /node_modules/,
+    //         //     loader: 'babel-loader'
+    //         // },
+    //         // // vue
+    //         // {
+    //         //     test: /\.vue$/,
+    //         //     loader: 'vue-loader'
+    //         // }
+    //     ],
+    // },
 };

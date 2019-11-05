@@ -40,6 +40,10 @@ cross-env
 css-loader
 ``` 
 ```javascript
+file-loader
+``` 
+Для подключения изображений в сборку
+```javascript
 html-webpack-plugin
 ``` 
 ```javascript
@@ -57,7 +61,23 @@ sass-loader
 ```javascript
 style-loader
 ``` 
+```javascript
+lodash
+``` 
+Библиотека для вспомогательных операций в JS
+```javascript
+clean-webpack-plugin
+```
+Плагин для удаления файлов, по умолчанию чистит ./dist 
+```javascript
+express
+```
+```javascript
+webpack-dev-middleware
+```
+Express и middleware нужны, чтобы организовать отслеживание работающей сборки
 
+ 
 **dependencies**
 ```javascript
 @babel/polyfill
