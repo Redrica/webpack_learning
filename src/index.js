@@ -31,28 +31,57 @@
 //     }
 // });
 
-import _ from 'lodash';
+// import _ from 'lodash';
 // import './style.css';
 // import facePalm from './facepalm.jpg';
-import printMe from './print';
+// import printMe from './print';
 
-function component () {
+// function component () {
+//     const element = document.createElement('div');
+//     const btn = document.createElement('button');
+//
+//     element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+//     // element.classList.add('hello');
+//
+//     btn.innerHTML = 'Click me and check the console!';
+//     btn.onclick = printMe;
+//
+//     element.appendChild(btn);
+//
+//     // const myImage = new Image();
+//     // myImage.src = facePalm;
+//     //
+//     // element.appendChild(myImage);
+//     return element;
+// }
+//
+// document.body.appendChild(component());
+
+// для динамического импорта
+// function getComponent () {
+//     // такое название (в комментарии) нужно, чтобы название нашего отдельного бандла было lodash.bundle.js вместо просто [id].bundle.js
+       // иначе будут 1.bundle.js и так далее.
+//     return import(/* webpackChunkName: "lodash" */ 'lodash').then(({ default: _ }) => {
+//         const element = document.createElement('div');
+//         element.innerHTML = _.join(['Hello', 'webpack', 'from', 'lodash'], ' ');
+//         return element;
+//     }).catch(error => 'An error occurred while loading the component');
+// }
+//
+// getComponent().then(component => {
+//     document.body.appendChild(component);
+// });
+
+// то же, что и выше, с использованием async function:
+async function getComponent () {
     const element = document.createElement('div');
-    const btn = document.createElement('button');
+    // именно через default, т.к. начиная с WP4 при импортировании Common JS модуля импорт не ресолвится в значение module.exports, вместо этого создается объект пространства имен для Common JS. НИХРЕНА непонятно.
+    const { default: _ } = await import(/* webpackChunkName: "lodash" */ 'lodash');
 
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-    // element.classList.add('hello');
-
-    btn.innerHTML = 'Click me and check the console!';
-    btn.onclick = printMe;
-
-    element.appendChild(btn);
-
-    // const myImage = new Image();
-    // myImage.src = facePalm;
-    //
-    // element.appendChild(myImage);
+    element.innerHTML = _.join(['Hello', 'webpack', 'from', 'lodash', 'async'], ' ');
     return element;
 }
 
-document.body.appendChild(component());
+getComponent().then(component => {
+     document.body.appendChild(component);
+});

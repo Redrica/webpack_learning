@@ -26,8 +26,7 @@ module.exports = {
 
     // точка входа, основной файл, в котором мы всё подключаем, т.е. какой модуль собираем.
     entry: {
-        app: './src/index.js',
-        print: './src/print.js'
+        index: './src/index.js',
     },
 
     // куда выкладывать
@@ -38,9 +37,12 @@ module.exports = {
 
         // несколько точек входа
         filename: '[name].bundle.js',
+        chunkFilename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
         // ↓ нужен для серверного скрипта при использовании webpack-dev-middleware
-        publicPath: '/',
+        // а в целом это "интернет-путь" к нашей сборке, как из интернета получить наши файлы.
+        // это обязательно предоставить в том случае, если мы хотим некоторые скрипты подгружать динамически.
+        // publicPath: '/ ', // в этом случае должен брать из папки dist. В конце publicPath обязательно должен быть /
     },
 
     // пересборка проекта при обнаружении изменений, используется кэш, пресобирается только изменившееся
@@ -70,16 +72,20 @@ module.exports = {
 
     // оптимизация выходных файлов
     optimization: {
-        minimize: true,
-        minimizer: [
-            new OptimizeCSSAssetsPlugin({
-                // + опции
-            }),
-
-            // new TerserPlugin({
-            //     // + опции
-            // })
-        ]
+        // разделение на чанки
+        // splitChunks: {
+        //     chunks: 'all',
+        // },
+        // minimize: true,
+        // minimizer: [
+        //     new OptimizeCSSAssetsPlugin({
+        //         // + опции
+        //     }),
+        //
+        //     // new TerserPlugin({
+        //     //     // + опции
+        //     // })
+        // ]
     },
     // сюда подключаются плагины
     plugins: [

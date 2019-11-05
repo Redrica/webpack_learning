@@ -68,7 +68,7 @@ lodash
 ```javascript
 clean-webpack-plugin
 ```
-Плагин для удаления файлов, по умолчанию чистит ./dist 
+Плагин для удаления файлов, по умолчанию чистит папку, указанную в output.path
 ```javascript
 express
 ```
