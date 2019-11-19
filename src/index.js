@@ -1,14 +1,14 @@
 'use strict';
-// import Vue from 'vue';
+import Vue from 'vue';
 //
 // import AppService from './modules/app.service';
 // import { config } from './modules/config';
 // import './modules/header.component';
 // import './css/index.css';
-// import './scss/index';
+import './scss/index';
 // import './less/index.less';
 // // импорт компонента Vue
-// import testComponent from './vue/test';
+import testComponent from '@vue/test';
 //
 // let welcome = require('./modules/my-module');
 // // ↓ не заботает, хз почему. В другой сборке работало.
@@ -23,13 +23,15 @@
 // // service.log();
 //
 //
-// const add = new Vue({
-//     el: '#app',
-//     components: {
-//         testComponent,
-//         // acync: () => import('./vue/acync')
-//     }
-// });
+
+window.GLOBAL = window.GLOBAL || {};
+
+const app = new Vue({
+    el: '#app',
+    components: {
+        testComponent,
+    }
+});
 
 // import _ from 'lodash';
 // import './style.css';
@@ -73,15 +75,15 @@
 // });
 
 // то же, что и выше, с использованием async function:
-async function getComponent () {
-    const element = document.createElement('div');
-    // именно через default, т.к. начиная с WP4 при импортировании Common JS модуля импорт не ресолвится в значение module.exports, вместо этого создается объект пространства имен для Common JS. НИХРЕНА непонятно.
-    const { default: _ } = await import(/* webpackChunkName: "lodash" */ 'lodash');
-
-    element.innerHTML = _.join(['Hello', 'webpack', 'from', 'lodash', 'async'], ' ');
-    return element;
-}
-
-getComponent().then(component => {
-     document.body.appendChild(component);
-});
+// async function getComponent () {
+//     const element = document.createElement('div');
+//     // именно через default, т.к. начиная с WP4 при импортировании Common JS модуля импорт не ресолвится в значение module.exports, вместо этого создается объект пространства имен для Common JS. НИХРЕНА непонятно.
+//     const { default: _ } = await import(/* webpackChunkName: "lodash" */ 'lodash');
+//
+//     element.innerHTML = _.join(['Hello', 'webpack', 'from', 'lodash', 'async'], ' ');
+//     return element;
+// }
+//
+// getComponent().then(component => {
+//      document.body.appendChild(component);
+// });

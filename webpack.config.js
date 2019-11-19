@@ -32,13 +32,14 @@ module.exports = {
     // куда выкладывать
     output: {
         // если один выходной файл
-        // filename: 'bundle.js',
-        // library: 'lib',
+        filename: 'bundle.js',
+        library: 'lib',
+        path: path.resolve(__dirname, 'dist'),
 
         // несколько точек входа
-        filename: '[name].bundle.js',
-        chunkFilename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist'),
+        // filename: '[name].bundle.js',
+        // chunkFilename: '[name].bundle.js',
+        // path: path.resolve(__dirname, 'dist'),
         // ↓ нужен для серверного скрипта при использовании webpack-dev-middleware
         // а в целом это "интернет-путь" к нашей сборке, как из интернета получить наши файлы.
         // это обязательно предоставить в том случае, если мы хотим некоторые скрипты подгружать динамически.
@@ -56,7 +57,10 @@ module.exports = {
         // какие расширения понимать по умолчанию. Не забыть сюда добавлять все расширения, использующиеся в проекте.
         extensions: ['.scss', '.js', '.vue'],
         // это нужно, чтобы сборка vue компилировала шаблоны. Подробнее - https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
-        alias: { vue$: 'vue/dist/vue.esm.js' },
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js',
+            '@vue': path.resolve(__dirname, 'src/vue'),
+        },
     },
 
     // локальный сервер для разработки
@@ -76,16 +80,16 @@ module.exports = {
         // splitChunks: {
         //     chunks: 'all',
         // },
-        // minimize: true,
-        // minimizer: [
-        //     new OptimizeCSSAssetsPlugin({
-        //         // + опции
-        //     }),
-        //
-        //     // new TerserPlugin({
-        //     //     // + опции
-        //     // })
-        // ]
+        minimize: true,
+        minimizer: [
+            new OptimizeCSSAssetsPlugin({
+                // + опции
+            }),
+
+            new TerserPlugin({
+                // + опции
+            })
+        ]
     },
     // сюда подключаются плагины
     plugins: [
@@ -94,66 +98,66 @@ module.exports = {
         new HTMLPlugin({
             // ключ, задающий title документу
             title: 'Output Management',
-            // filename: 'index.html',
-            // template: './src/index.html',
+            filename: 'index.html',
+            template: './src/index.html',
         }),
 
-        // new MiniCssExtractPlugin({
-        //     filename: 'style.css',
-        // }),
-        //
-        // new VueLoaderPlugin(),
-        //
-        // new webpack.DefinePlugin({
-        //     NODE_ENV: JSON.stringify(NODE_ENV)
-        // })
+        new MiniCssExtractPlugin({
+            filename: 'style.css',
+        }),
+
+        new VueLoaderPlugin(),
+
+        new webpack.DefinePlugin({
+            NODE_ENV: JSON.stringify(NODE_ENV)
+        })
     ],
 
     // лоадеры
-    // module: {
-    //     rules: [
-    //         // лоадер css
-    //         {
-    //             test: /\.css$/,
-    //
-    //             // если использовать запись стилей в head <style>
-    //             use: ['style-loader', 'css-loader']
-    //
-    //             // если делать отдельный стилевой файл
-    //             // use: [MiniCssExtractPlugin.loader, 'css-loader']
-    //         },
-    //         // лоадер изображений
-    //         {
-    //             test: /\.(png|svg|jpg|gif)$/,
-    //             use: ['file-loader']
-    //         },
-    //         // лоадер шрифтов
-    //         {
-    //             test: /\.(woff|woff2|eot|ttf|otf)$/,
-    //             use: ['file-loader']
-    //         },
-    //         // по аналогии – лоадеры csv, tsv, xml, json? и так далее
-    //         // // лоадер scss
-    //         // {
-    //         //     test: /\.scss$/,
-    //         //     use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-    //         // },
-    //         // // лоадер less
-    //         // {
-    //         //     test: /\.less$/,
-    //         //     use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
-    //         // },
-    //         // // babel
-    //         // {
-    //         //     test: /\.js$/,
-    //         //     exclude: /node_modules/,
-    //         //     loader: 'babel-loader'
-    //         // },
-    //         // // vue
-    //         // {
-    //         //     test: /\.vue$/,
-    //         //     loader: 'vue-loader'
-    //         // }
-    //     ],
-    // },
+    module: {
+        rules: [
+            // лоадер css
+            {
+                test: /\.css$/,
+
+                // если использовать запись стилей в head <style>
+                // use: ['style-loader', 'css-loader']
+
+                // если делать отдельный стилевой файл
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
+            },
+            // лоадер изображений
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: ['file-loader']
+            },
+            // лоадер шрифтов
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                use: ['file-loader']
+            },
+            // по аналогии – лоадеры csv, tsv, xml, json? и так далее
+            // лоадер scss
+            {
+                test: /\.scss$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+            },
+            // лоадер less
+            {
+                test: /\.less$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
+            },
+            // babel
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
+            },
+            // vue
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
+            }
+        ],
+    },
 };
