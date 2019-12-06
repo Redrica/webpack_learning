@@ -27,6 +27,14 @@ module.exports = {
     // точка входа, основной файл, в котором мы всё подключаем, т.е. какой модуль собираем.
     entry: {
         index: './src/index.js',
+/**
+ index – полное название для точки входа, здесь можно указать полный адрес, по которому мы в итоге хотим видеть собранные бандлы, например
+ entry: {
+    '/somename/sometest/jsname': './test'
+ } возьмет файл test.js, лежащий в корне проекте (или, если прописан контекст, – в месте указания этого контекста), обработает и выгрузит
+ в директорию, указанную в output path и далее → в папку somename → в папку sometest → и назовет файл jsname + хвостик из output filename
+**/
+
     },
 
     // куда выкладывать
@@ -37,7 +45,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
 
         // несколько точек входа
-        // filename: '[name].bundle.js',
+        // filename: '[name].bundle.js', // задается шаблон, вместо name будет подставлено ИМЯ ТОЧКИ ВХОДА, соответствующей файлу, а не самого файла, на основе которого собирается бандл.
         // chunkFilename: '[name].bundle.js',
         // path: path.resolve(__dirname, 'dist'),
         // ↓ нужен для серверного скрипта при использовании webpack-dev-middleware
@@ -56,7 +64,7 @@ module.exports = {
     resolve: {
         // какие расширения понимать по умолчанию. Не забыть сюда добавлять все расширения, использующиеся в проекте.
         extensions: ['.scss', '.js', '.vue'],
-        // это нужно, чтобы сборка vue компилировала шаблоны. Подробнее - https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
+        // 'vue$': нужно, чтобы сборка vue компилировала шаблоны. Подробнее - https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
             '@vue': path.resolve(__dirname, 'src/vue'),

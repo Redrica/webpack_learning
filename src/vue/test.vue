@@ -1,7 +1,7 @@
 <template>
     <div>
         <button class="test-box" @click="flag = !flag">{{ message }}</button>
-        <async v-if="flag"></async>
+        <async></async>
         <button @click="secondFlag = ! secondFlag">Call Mr. Another</button>
         <async-another v-if="secondFlag"></async-another>
 
