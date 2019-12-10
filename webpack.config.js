@@ -27,6 +27,7 @@ module.exports = {
     // точка входа, основной файл, в котором мы всё подключаем, т.е. какой модуль собираем.
     entry: {
         index: './src/index.js',
+        page: './src/page.js',
 /**
  index – полное название для точки входа, здесь можно указать полный адрес, по которому мы в итоге хотим видеть собранные бандлы, например
  entry: {
@@ -40,7 +41,7 @@ module.exports = {
     // куда выкладывать
     output: {
         // если один выходной файл
-        filename: 'bundle.js',
+        filename: '[name].js',
         library: 'lib',
         path: path.resolve(__dirname, 'dist'),
 
@@ -104,14 +105,17 @@ module.exports = {
         new CleanWebpackPlugin(),
 
         new HTMLPlugin({
-            // ключ, задающий title документу
-            title: 'Output Management',
             filename: 'index.html',
             template: './src/index.html',
         }),
 
+        new HTMLPlugin({
+            filename: 'page.html',
+            template: './src/page.html',
+        }),
+
         new MiniCssExtractPlugin({
-            filename: 'style.css',
+            filename: '[name].css',
         }),
 
         new VueLoaderPlugin(),

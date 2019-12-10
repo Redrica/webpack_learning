@@ -4,12 +4,12 @@ import './scss/index';
 
 // // импорт компонента Vue
 import switchComponent from '@vue/components/switch-component';
-import indexComponent from '@vue/components/index-component';
+import pageComponent from '@vue/components/page-component';
 
 const app = new Vue({
     el: '#app',
     components: {
         switchComponent,
-        indexComponent,
+        pageComponent
     }
 });
