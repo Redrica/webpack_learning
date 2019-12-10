@@ -3,25 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Webpack</title>
+  <link rel="stylesheet" href="index.css">
 </head>
 <body>
-<div id="app">
+  <div id="app">
     <header></header>
 
     <hr>
 
     <div class="box">
-        <h2 class="box-title">Webpack is amazing</h2>
-        <hr>
-
-        <switch-component link="page.html"></switch-component>
-
-        <index-component></index-component>
-
+      <h2 class="box-title">Webpack is amazing</h2>
+      <hr>
     </div>
-</div>
 
-<script src="index.js"></script>
+    <a href="page.html">GOTO PAGE</a>
+
+    <common-component></common-component>
+
+    <index-component></index-component>
+
+  </div>
+
+  <script src="index.js"></script>
 
 </body>
 </html>

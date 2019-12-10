@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <title>Webpack</title>
-</head>
-<body>
-<div id="app">
-    <header></header>
+    <link rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    <div id="app">
+      <header></header>
 
-    <hr>
+      <hr>
 
-    <div class="box">
+      <div class="box">
         <h2 class="box-title">Webpack is amazing</h2>
         <hr>
+      </div>
 
-        <switch-component link="index.html"></switch-component>
+      <a href="index.html">GOTO INDEX</a>
 
-        <page-component></page-component>
+      <common-component></common-component>
+
+      <page-component></page-component>
 
     </div>
-</div>
 
-<script src="page.js"></script>
+    <script src="page.js"></script>
 
-</body>
+  </body>
 </html>

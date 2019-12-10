@@ -56,7 +56,7 @@ module.exports = {
     },
 
     // пересборка проекта при обнаружении изменений, используется кэш, пресобирается только изменившееся
-    watch: NODE_ENV == 'development',
+    watch: NODE_ENV === 'development',
     watchOptions: {
         // сколько WP будет ждать до пересборки после того, как изменения произошли (ms).
       aggregateTimeout: 100
@@ -75,7 +75,7 @@ module.exports = {
     // локальный сервер для разработки
     devServer: {
         contentBase: path.resolve(__dirname, 'dist'),
-        port: 4200
+        port: 3000
     },
 
     // для отладки, чтобы можно было код смотреть в виде файлов, а не абракадаброй.
@@ -95,9 +95,9 @@ module.exports = {
                 // + опции
             }),
 
-            new TerserPlugin({
-                // + опции
-            })
+            // new TerserPlugin({
+            //     // + опции
+            // })
         ]
     },
     // сюда подключаются плагины
@@ -107,11 +107,13 @@ module.exports = {
         new HTMLPlugin({
             filename: 'index.html',
             template: './src/index.html',
+            inject: false,
         }),
 
         new HTMLPlugin({
             filename: 'page.html',
             template: './src/page.html',
+            inject: false,
         }),
 
         new MiniCssExtractPlugin({
@@ -153,11 +155,6 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-            },
-            // лоадер less
-            {
-                test: /\.less$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
             },
             // babel
             {
