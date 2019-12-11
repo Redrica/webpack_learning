@@ -92,7 +92,7 @@ module.exports = {
             minSize: 1,
             cacheGroups: {
                 common: {
-                    filename: 'common.js',
+                    filename: '[name].js',
                     minSize: 1,
                     enforce: true
                 },

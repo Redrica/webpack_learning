@@ -4,8 +4,8 @@ import './scss/index';
 
 // импорт компонентов Vue
 
-import commonComponent from '@vue/components/common-component';
-import indexComponent from '@vue/components/index-component';
+//import commonComponent from '@vue/components/common-component';
+import indexComponent from '../src/vue/components/index-component';
 
 const app = new Vue({
     el: '#app',
