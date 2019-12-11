@@ -27,10 +27,16 @@
 </script>
 
 <style>
+  @import "../../scss/main.scss";
+
   .block--page {
     background-color: darkslateblue;
-    color: darkorange;
-    box-shadow: inset 0 0 0 10px darkslateblue, inset 0 0 0 12px darkorange, inset 0 0 2px 16px #3a3a75;
+    color: moccasin;
+    box-shadow: inset 0 0 0 10px darkslateblue, inset 0 0 0 12px moccasin, inset 0 0 2px 16px #3a3a75;
+  }
+
+  .test {
+    color: red;
   }
 
 </style>

@@ -42,12 +42,12 @@ module.exports = {
     output: {
         // если один выходной файл
         filename: '[name].js',
-        library: 'lib',
+        library: '[name]',
         path: path.resolve(__dirname, 'dist'),
 
         // несколько точек входа
         // filename: '[name].bundle.js', // задается шаблон, вместо name будет подставлено ИМЯ ТОЧКИ ВХОДА, соответствующей файлу, а не самого файла, на основе которого собирается бандл.
-        // chunkFilename: '[name].bundle.js',
+        // chunkFilename: '[name].bundle.js', // название для чанков, не являющихся точками входа. Должна быть связь между id чанка и этим именем, чтобы можно было обращаться к чанкам при динамическом вызове
         // path: path.resolve(__dirname, 'dist'),
         // ↓ нужен для серверного скрипта при использовании webpack-dev-middleware
         // а в целом это "интернет-путь" к нашей сборке, как из интернета получить наши файлы.
@@ -86,9 +86,24 @@ module.exports = {
     // оптимизация выходных файлов
     optimization: {
         // разделение на чанки
-        // splitChunks: {
-        //     chunks: 'all',
-        // },
+        splitChunks: {
+            chunks: 'all',
+            name: 'common',
+            minSize: 1,
+            cacheGroups: {
+                common: {
+                    filename: 'common.js',
+                    minSize: 1,
+                    enforce: true
+                },
+                // styles: {
+                //     name: 'styles',
+                //     test: /\.css$/,
+                //     chunks: 'all',
+                //     enforce: true,
+                // }
+            }
+        },
         minimize: true,
         minimizer: [
             new OptimizeCSSAssetsPlugin({

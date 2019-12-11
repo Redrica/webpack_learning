@@ -10,7 +10,7 @@ import pageComponent from '@vue/components/page-component';
 const app = new Vue({
     el: '#app',
     components: {
-        commonComponent,
+        commonComponent: () => import('./vue/components/common-component'),
         pageComponent,
     }
 });

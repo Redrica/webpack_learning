@@ -2,7 +2,7 @@ $primary: #006cbf;
 $secondary: #7ed2e4;
 
 * {
-  font-family: "Gilroy Light";
+  font-family: "Comic Sans MS";
   box-sizing: border-box;
   letter-spacing: 0.1em;
 }
@@ -40,4 +40,12 @@ $secondary: #7ed2e4;
   text-align: center;
   border-radius: 15px;
   cursor: pointer;
+
+  &--index {
+    color: #00699b;
+  }
+
+  &--page {
+    color: greenyellow;
+  }
 }
