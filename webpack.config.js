@@ -28,13 +28,13 @@ module.exports = {
     entry: {
         index: './src/index.js',
         page: './src/page.js',
-/**
- index – полное название для точки входа, здесь можно указать полный адрес, по которому мы в итоге хотим видеть собранные бандлы, например
- entry: {
+        /**
+         index – полное название для точки входа, здесь можно указать полный адрес, по которому мы в итоге хотим видеть собранные бандлы, например
+         entry: {
     '/somename/sometest/jsname': './test'
  } возьмет файл test.js, лежащий в корне проекте (или, если прописан контекст, – в месте указания этого контекста), обработает и выгрузит
- в директорию, указанную в output path и далее → в папку somename → в папку sometest → и назовет файл jsname + хвостик из output filename
-**/
+         в директорию, указанную в output path и далее → в папку somename → в папку sometest → и назовет файл jsname + хвостик из output filename
+         **/
 
     },
 
@@ -59,7 +59,7 @@ module.exports = {
     watch: NODE_ENV == 'development',
     watchOptions: {
         // сколько WP будет ждать до пересборки после того, как изменения произошли (ms).
-      aggregateTimeout: 100
+        aggregateTimeout: 100
     },
 
     resolve: {
@@ -81,7 +81,7 @@ module.exports = {
     // для отладки, чтобы можно было код смотреть в виде файлов, а не абракадаброй.
     // Могут быть разные параметры, для production лучше source-map, для development – eval либо cheap-inline-source-map.
     // Есть подозрение, что в WP4 включена по умолчанию на eval.
-    devtool: NODE_ENV == 'development' ? 'eval' : false,
+    devtool: NODE_ENV === 'development' ? 'eval' : false,
 
     // оптимизация выходных файлов
     optimization: {
@@ -107,11 +107,13 @@ module.exports = {
         new HTMLPlugin({
             filename: 'index.html',
             template: './src/index.html',
+            chunks: ['index'],
         }),
 
         new HTMLPlugin({
             filename: 'page.html',
             template: './src/page.html',
+            chunks: ['page'],
         }),
 
         new MiniCssExtractPlugin({
