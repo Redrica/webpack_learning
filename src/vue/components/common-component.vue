@@ -14,7 +14,7 @@
     }
 </script>
 
-<style>
+<style lang="scss">
 
   .button {
     margin-left: 20px;

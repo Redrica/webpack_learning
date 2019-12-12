@@ -92,7 +92,9 @@ module.exports = {
             minSize: 1,
             cacheGroups: {
                 common: {
-                    filename: '[name].js',
+                    chunks: 'initial',
+                    name: 'common-js',
+                    //filename: 'common-filename.js',
                     minSize: 1,
                     enforce: true
                 },
@@ -185,3 +187,219 @@ module.exports = {
         ],
     },
 };
+
+// system
+
+// const pugHelpers = require('./webpack_conf/pugHelpers');
+
+// env mode
+const mode = process.env.NODE_ENV || 'development';
+
+// data
+// const pugData = require('./webpack_conf/bundleData');
+// const ModalName = require('./markup/static/js/helpers/modal-name');
+
+// plugins
+//const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const entry = require('webpack-glob-entry');
+
+
+
+// module.exports = [
+//     {
+//         mode: mode,
+//
+//         entry: {
+//             index: './src/index.js',
+//             page: './src/page.js',
+//         },
+//
+//         output: {
+//             path: path.join(__dirname, 'build'),
+//             filename: 'assets/js/[name].js',
+//         },
+//
+//         devtool: (mode === 'development') ? 'cheap-module-eval-source-map' : 'source-map',
+//
+//         devServer: {
+//             hot: true,
+//             inline: true,
+//             proxy: {
+//                 '/api': 'http://localhost:3000',
+//             },
+//         },
+//
+//         optimization: {
+//             minimizer: [
+//                 // mode === constants.mode.production ? new UglifyJsPlugin() : false,
+//                 mode === 'development' ? new TerserPlugin() : false,
+//
+//                 mode === 'development'
+//                     ? new OptimizeCSSAssetsPlugin()
+//                     : false,
+//             ].filter(Boolean),
+//             splitChunks: {
+//                 chunks: 'initial',
+//                 name: 'commons',
+//                 minSize: 1,
+//                 maxSize: 0,
+//                 cacheGroups: {
+//                     commons: {
+//                         filename: 'common-file.js',
+//                         chunks: 'initial',
+//                         minChunks: 2,
+//                         maxSize: 0,
+//                         enforce: true,
+//                     },
+//                     // styles: {
+//                     //     name: 'style',
+//                     //     test: /\.css$/,
+//                     //     chunks: 'all',
+//                     //     enforce: true,
+//                     //     priority: -20
+//                     // },
+//                 },
+//             },
+//         },
+//
+//         module: {
+//             rules: [
+//                 {
+//                     test: /\.vue$/,
+//                     loader: 'vue-loader',
+//                     options: {
+//                         loaders: {
+//                             scss: 'vue-style-loader!css-loader!sass-loader',
+//                             pug: 'raw-loader!pug-plain-loader',
+//                         },
+//                     },
+//                 },
+//                 {
+//                     test: /\.js$/,
+//                     loader: 'babel-loader',
+//                     exclude: /node_modules/,
+//                 },
+//                 {
+//                     test: /\.pug$/,
+//                     oneOf: [
+//                         // это применяется к `<template lang="pug">` в компонентах Vue
+//                         {
+//                             resourceQuery: /^\?vue/,
+//                             use: [
+//                                 'pug-plain-loader',
+//                             ],
+//                         },
+//                         // это применяется к импортам pug внутри JavaScript
+//                         // для компиляции pug-страничек src/markup/pages, уже не надо
+//                         // {
+//                         //     use: [
+//                         //         'raw-loader',
+//                         //         {
+//                         //             loader: 'pug-html-loader',
+//                         //             options: {
+//                         //                 data: { pugHelpers, ...pugData, ModalName, DEV_MODE: mode, FILE_NAME },
+//                         //             },
+//                         //         },
+//                         //     ],
+//                         // },
+//                     ],
+//                 },
+//                 {
+//                     test: /\.s?css$/,
+//                     use: [
+//                         'style-loader',
+//                         'css-hot-loader',
+//                         MiniCssExtractPlugin.loader,
+//                         {
+//                             loader: 'css-loader',
+//                             options: {
+//                                 sourceMap: true,
+//                                 url: false,
+//                                 // module: true,
+//                             },
+//                         },
+//                         {
+//                             loader: 'sass-loader',
+//                             options: {
+//                                 sourceMap: true,
+//                             },
+//                         },
+//                     ],
+//                 },
+//
+//             ], // end rules
+//         },
+//
+//         plugins: [
+//             mode === 'production'
+//                 ? new CleanWebpackPlugin()
+//                 : false,
+//             new webpack.DefinePlugin({
+//                 'process.env': {
+//                     NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+//
+//                 },
+//             }),
+//
+//             new MiniCssExtractPlugin({
+//                 filename: `assets/css/[name].css`,
+//                 //filename: `assets/css/${FILE_NAME.CSS}`,
+//                 //chunkFilename: `assets/css/[name].css`,
+//             }),
+//
+//
+//             new webpack.SourceMapDevToolPlugin({
+//                 filename: '[file].map',
+//             }),
+//
+//             new VueLoaderPlugin(),
+//
+//             mode === 'development'
+//                 ? new webpack.HotModuleReplacementPlugin()
+//                 : false,
+//
+//         ].filter(Boolean),
+//         // для компиляции pug-страничек src/markup/pages, уже не надо
+//         // .concat( htmlPlugins,
+//         // [
+//         //     mode === constants.mode.production
+//         //         ? new HtmlBeautifyPlugin({
+//         //             config: {
+//         //                 html: {
+//         //                     end_with_newline: false,
+//         //                     indent_size: 2,
+//         //                     indent_with_tabs: false,
+//         //                 },
+//         //             },
+//         //         })
+//         //         : false,
+//         // ].filter(Boolean)),
+//
+//         resolve: {
+//             extensions: [ '.js', '.vue', '.json', '.svg', '.css', '.scss' ],
+//             modules: [
+//                 'node_modules',
+//                 path.join(__dirname, 'markup'),
+//             ],
+//             alias: {
+//                 // Set for processing assets url in styles
+//                 'vue$': 'vue/dist/vue.esm.js',
+//                 '@font': path.join(__dirname, 'markup/static/font/'),
+//                 '@kdapi': path.join(__dirname, 'markup/static/js/api/'),
+//                 '@integrations': path.join(__dirname, 'markup/static/js/integrations/'),
+//                 '@api': path.join(__dirname, 'markup/static/js/api/api'),
+//                 '@mock': path.join(__dirname, 'markup/static/js/mock'),
+//                 '@store': path.join(__dirname, 'markup/static/js/store'),
+//                 '@helpers': path.join(__dirname, 'markup/static/js/helpers/'),
+//                 '@vue': path.join(__dirname, 'markup/static/js/vue/'),
+//                 '@scss': path.join(__dirname, 'markup/static/scss/'),
+//                 '@img': path.join(__dirname, 'markup/static/img/'),
+//                 'components': path.join(__dirname, 'markup/components'),
+//                 'static': path.join(__dirname, 'markup/static'),
+//             },
+//         },
+//     },
+// ];
