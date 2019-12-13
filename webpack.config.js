@@ -82,40 +82,50 @@ module.exports = {
     // Могут быть разные параметры, для production лучше source-map, для development – eval либо cheap-inline-source-map.
     // Есть подозрение, что в WP4 включена по умолчанию на eval.
     devtool: NODE_ENV == 'development' ? 'eval' : false,
+    //devtool: 'cheap-inline-source-map', // человекочитаемое
 
     // оптимизация выходных файлов
     optimization: {
+        //runtimeChunk: 'single',
         // разделение на чанки
         splitChunks: {
-            chunks: 'all',
-            name: 'common',
+            chunks: 'initial', // all - обработает и точки входа и async чанки, initial - выделит async js и css отдельно с префиксом чанка (1.js, 1.css и т.п.)
+            name: true,
             minSize: 1,
+            //automaticNameDelimiter: '_',
             cacheGroups: {
-                common: {
+                commons: {
+                    name: 'commons',
                     chunks: 'initial',
-                    name: 'common-js',
+                    //test: './src/*.js',
                     //filename: 'common-filename.js',
+                    minChunks: 2,
                     minSize: 1,
-                    enforce: true
+                    //enforce: true
                 },
+                // vendors: {
+                //     test: /[\\/]node_modules[\\/]/,
+                // }
                 // styles: {
                 //     name: 'styles',
+                //     //filename: 'styles.css', // no effect
                 //     test: /\.css$/,
-                //     chunks: 'all',
+                //     //chunks: 'all', // no effect
                 //     enforce: true,
+                //     //priority: 100, // no effect
                 // }
             }
         },
-        minimize: true,
-        minimizer: [
-            new OptimizeCSSAssetsPlugin({
-                // + опции
-            }),
-
-            // new TerserPlugin({
-            //     // + опции
-            // })
-        ]
+        minimize: false, // надо true, сейчас отключено, чтобы можно было оценировать результат разделения кода.
+        // minimizer: [
+        //     new OptimizeCSSAssetsPlugin({
+        //         // + опции
+        //     }),
+        //
+        //     // new TerserPlugin({
+        //     //     // + опции
+        //     // })
+        // ]
     },
     // сюда подключаются плагины
     plugins: [
@@ -135,6 +145,7 @@ module.exports = {
 
         new MiniCssExtractPlugin({
             filename: '[name].css',
+            //chunkFilename: '[name].css', // по сути можно не указывать, влияет только на динамические чанки (??)
         }),
 
         new VueLoaderPlugin(),
