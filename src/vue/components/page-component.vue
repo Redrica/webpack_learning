@@ -17,11 +17,16 @@
         methods: {
             handleClick() {
                 this.text === this.stringStart ? this.text = this.stringFinish : this.text = this.stringStart;
+            },
+
+            reload() {
+              setTimeout(() => document.location.reload(), 3000);
             }
         },
 
         mounted() {
             this.text = this.stringStart;
+            //this.reload();
         }
     }
 </script>
